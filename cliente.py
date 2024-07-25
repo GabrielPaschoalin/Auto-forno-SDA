@@ -7,7 +7,13 @@ PORTA = 3000  # Porta do servidor
 def receive_message(sock):
     while True:
         data = sock.recv(1024)
-        print(data)
+        message = data.decode('utf-8')
+        print(message)
+        try:
+            with open("./historiador.txt", "a") as arquivo:
+                arquivo.write(message + '\n')
+        except OSError as erro:
+            print(f"Erro ao escrever no arquivo: {erro}")
 
 if __name__ == "__main__":
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

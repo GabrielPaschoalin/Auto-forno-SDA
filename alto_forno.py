@@ -88,12 +88,6 @@ def alto_forno():
         asyncio.run(escrita_opc([NODE_ID_TEMPERATURA, NODE_ID_FLUXO_DE_CALOR], [temperatura, fluxo_de_calor]))
         novo_registro = (f"[SIMULACAO]: Temperatura = {temperatura} K | Fluxo de Calor = {fluxo_de_calor} W\n")
         print(novo_registro)
-        try:
-            with open("./historiador.txt", "a") as arquivo:
-                arquivo.write(novo_registro)
-        except OSError as erro:
-            print(f"Erro ao escrever no arquivo: {erro}")
-
         time.sleep(dt_simulacao)
 
 # Função que controla a temperatura do alto-forno
@@ -105,12 +99,6 @@ def controle_temperatura():
             fluxo_de_calor = controle(erro)
         novo_registro = f"[CONTROLE]: Erro = {erro} | Fluxo de Calor Ajustado = {fluxo_de_calor} W\n"
         print(novo_registro)
-        try:
-            with open("./historiador.txt", "a") as arquivo:
-                arquivo.write(novo_registro)
-        except OSError as erro:
-            print(f"Erro ao escrever no arquivo: {erro}")
-
         time.sleep(dt_controle)
 
 # Função para plotar o gráfico de temperatura ao longo do tempo
